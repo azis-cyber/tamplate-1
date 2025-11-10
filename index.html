@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Rêve - Fine Dining Restaurant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #d4af37;
+            --primary-dark: #b8941f;
+            --secondary: #1a1a1a;
+            --accent: #8b7355;
+            --gold-light: #f4e5c2;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --overlay: rgba(0,0,0,0.7);
+            --success: #10b981;
+            --error: #ef4444;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1.5;
+            color: var(--text-light);
+            background: var(--secondary);
+            overflow-x: hidden;
+            font-size: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        /* Header */
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background: rgba(26, 26, 26, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .logo i {
+            font-size: 1.4rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.8rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .reserve-btn {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .reserve-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://picsum.photos/seed/fine-dining-restaurant/1920/1080.jpg') center/cover;
+            filter: brightness(0.4);
+            z-index: -1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26,26,26,0.8) 0%, rgba(212,175,55,0.2) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 600px;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease;
+        }
+        
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            color: var(--text-light);
+        }
+        
+        .hero-description {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.8rem;
+            color: var(--gold-light);
+            line-height: 1.6;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.7rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border-color: var(--text-light);
+        }
+        
+        .btn-outline:hover {
+            background: var(--text-light);
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, var(--secondary) 0%, #2a2a2a 100%);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .about-text p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--gold-light);
+            line-height: 1.8;
+        }
+        
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 0.2rem;
+        }
+        
+        .feature-text h4 {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-text p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        
+        .about-image {
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+        
+        /* Menu Section */
+        .menu {
+            padding: 4rem 0;
+            background: #1a1a1a;
+        }
+        
+        .menu-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .menu-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .menu-header p {
+            font-size: 1rem;
+            color: var(--gold-light);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-tab {
+            background: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--text-muted);
+            padding: 0.5rem 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab.active,
+        .category-tab:hover {
+            background: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .menu-item-title {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .menu-item-price {
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .menu-item-description {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .menu-item-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .menu-tag {
+            background: rgba(212,175,55,0.1);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+        }
+        
+        /* Wine Pairing Section */
+        .wine-pairing {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+        
+        .wine-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .wine-text h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .wine-text p {
+            font-size: 1rem;
+            color: var(--gold-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .wine-selection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        
+        .wine-card {
+            background: rgba(212,175,55,0.05);
+            border: 1px solid rgba(212,175,55,0.2);
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .wine-card:hover {
+            background: rgba(212,175,55,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .wine-name {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .wine-origin {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+        
+        .wine-price {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Private Events Section */
+        .private-events {
+            padding: 4rem 0;
+            background: #1a1a1a;
+        }
+        
+        .events-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .events-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .events-content p {
+            font-size: 1rem;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .event-card {
+            background: rgba(212,175,55,0.05);
+            border: 1px solid rgba(212,175,55,0.2);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .event-card:hover {
+            background: rgba(212,175,55,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .event-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .event-title {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        
+        .event-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+        
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            height: 180px;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26,26,26,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        /* Reservation Section */
+        .reservation {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(26,26,26,0.95) 0%, rgba(212,175,55,0.1) 100%), url('https://picsum.photos/seed/luxury-restaurant/1920/1080.jpg') center/cover;
+            position: relative;
+        }
+        
+        .reservation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        
+        .reservation-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .reservation-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .reservation-content p {
+            font-size: 1rem;
+            color: var(--gold-light);
+            margin-bottom: 2rem;
+        }
+        
+        .reservation-form {
+            background: rgba(26,26,26,0.9);
+            padding: 2rem;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(212,175,55,0.3);
+            color: var(--text-light);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255,255,255,0.08);
+        }
+        
+        .form-group textarea {
+            resize: none;
+            height: 80px;
+        }
+        
+        .form-submit {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .form-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 4px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .form-message.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .form-message.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: #1a1a1a;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        
+        .contact-info h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-top: 0.2rem;
+            width: 25px;
+        }
+        
+        .contact-text h4 {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
+        }
+        
+        .contact-text p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .contact-map {
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            max-width: 400px;
+        }
+        
+        .contact-map img {
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f0f0f;
+            padding: 2rem 0 0.8rem;
+            border-top: 1px solid rgba(212,175,55,0.2);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.3rem;
+        }
+        
+        .footer-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: rgba(212,175,55,0.1);
+            color: var(--primary);
+            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            color: var(--secondary);
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212,175,55,0.2);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-content,
+            .wine-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="container">
+            <a href="#" class="logo">
+                <i class="fas fa-crown"></i>
+                Le Rêve
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#wine">Wine</a></li>
+                <li><a href="#events">Private</a></li>
+                <li><a href="#reservation">Reservasi</a></li>
+                <li><button class="reserve-btn">Reserve Now</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-subtitle">Fine Dining Experience</div>
+            <h1>Le Rêve</h1>
+            <p class="hero-description">Di mana setiap hidangan adalah karya seni dan setiap momen adalah kenangan yang tak terlupakan</p>
+            <div class="hero-buttons">
+                <a href="#reservation" class="btn btn-primary">
+                    <i class="fas fa-calendar-alt"></i>
+                    Reservasi Meja
+                </a>
+                <a href="#menu" class="btn btn-outline">
+                    <i class="fas fa-book-open"></i>
+                    Lihat Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Keunggulan Kami</h2>
+                    <p>Le Rêve hadir sejak 2010 dengan visi membawa pengalaman fine dining autentik ke Indonesia. Dipimpin oleh Chef Antoine Dubois yang telah meraih 3 bintang Michelin.</p>
+                    <p>Setiap detail di restoran kami dirancang untuk menciptakan suasana yang eksklusif dan intim.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <i class="fas fa-award feature-icon"></i>
+                            <div class="feature-text">
+                                <h4>Michelin Starred</h4>
+                                <p>Penghargaan bintang Michelin selama 5 tahun</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-leaf feature-icon"></i>
+                            <div class="feature-text">
+                                <h4>Ingredients Premium</h4>
+                                <p>Bahan organik impor langsung dari Prancis</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-wine-glass feature-icon"></i>
+                            <div class="feature-text">
+                                <h4>Wine Collection</h4>
+                                <p>Koleksi wine eksklusif 500+ pilihan</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-concierge-bell feature-icon"></i>
+                            <div class="feature-text">
+                                <h4>Personal Service</h4>
+                                <p>Layanan personal concierge untuk setiap tamu</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://picsum.photos/seed/fine-dining-interior/450/300.jpg" alt="Fine Dining Interior">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="menu-header">
+                <h2>Menu Eksklusif</h2>
+                <p>Hidangan khas Chef Antoine yang menggabungkan teknik klasik dengan inovasi modern</p>
+            </div>
+            
+            <div class="menu-categories">
+                <button class="category-tab active" data-category="appetizer">Appetizer</button>
+                <button class="category-tab" data-category="main">Main Course</button>
+                <button class="category-tab" data-category="dessert">Dessert</button>
+                <button class="category-tab" data-category="tasting">Tasting Menu</button>
+            </div>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-category="appetizer">
+                    <div class="menu-item-header">
+                        <div>
+                            <h3 class="menu-item-title">Oysters Rockefeller</h3>
+                        </div>
+                        <div class="menu-item-price">Rp 285.000</div>
+                    </div>
+                    <p class="menu-item-description">Tiram segar dari Normandy dengan spinach, cream, dan Pernod</p>
+                    <div class="menu-item-tags">
+                        <span class="menu-tag">Seafood</span>
+                        <span class="menu-tag">Classic</span>
+                        <span class="menu-tag">Signature</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-header">
+                        <div>
+                            <h3 class="menu-item-title">Beef Wellington</h3>
+                        </div>
+                        <div class="menu-item-price">Rp 525.000</div>
+                    </div>
+                    <p class="menu-item-description">Wagyu tenderloin dengan mushroom duxelles, foie gras</p>
+                    <div class="menu-item-tags">
+                        <span class="menu-tag">Wagyu</span>
+                        <span class="menu-tag">Signature</span>
+                        <span class="menu-tag">Classic</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="main">
+                    <div class="menu-item-header">
+                        <div>
+                            <h3 class="menu-item-title">Lobster Thermidor</h3>
+                        </div>
+                        <div class="menu-item-price">Rp 485.000</div>
+                    </div>
+                    <p class="menu-item-description">Lobster segar dengan cognac cream, tarragon, dan gruyere</p>
+                    <div class="menu-item-tags">
+                        <span class="menu-tag">Seafood</span>
+                        <span class="menu-tag">Luxury</span>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="dessert">
+                    <div class="menu-item-header">
+                        <div>
+                            <h3 class="menu-item-title">Crêpes Suzette</h3>
+                        </div>
+                        <div class="menu-item-price">Rp 185.000</div>
+                    </div>
+                    <p class="menu-item-description">Crêpes tipis dengan orange sauce, Grand Marnier</p>
+                    <div class="menu-item-tags">
+                        <span class="menu-tag">Flambé</span>
+                        <span class="menu-tag">Classic</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wine Pairing Section -->
+    <section id="wine" class="wine-pairing">
+        <div class="container">
+            <div class="wine-content">
+                <div class="wine-text">
+                    <h2>Wine Pairing</h2>
+                    <p>Sommelier kami akan membantu Anda memilih wine yang sempurna untuk setiap hidangan.</p>
+                </div>
+                <div class="wine-selection">
+                    <div class="wine-card">
+                        <div class="wine-name">Château Margaux</div>
+                        <div class="wine-origin">Bordeaux, 2015</div>
+                        <div class="wine-price">Rp 2.850.000</div>
+                    </div>
+                    <div class="wine-card">
+                        <div class="wine-name">Domaine de la Romanée</div>
+                        <div class="wine-origin">Burgundy, 2018</div>
+                        <div class="wine-price">Rp 3.250.000</div>
+                    </div>
+                    <div class="wine-card">
+                        <div class="wine-name">Champagne Dom Pérignon</div>
+                        <div class="wine-origin">Champagne, 2012</div>
+                        <div class="wine-price">Rp 1.850.000</div>
+                    </div>
+                    <div class="wine-card">
+                        <div class="wine-name">Château d'Yquem</div>
+                        <div class="wine-origin">Sauternes, 2016</div>
+                        <div class="wine-price">Rp 4.500.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Private Events Section -->
+    <section id="events" class="private-events">
+        <div class="container">
+            <div class="events-content">
+                <h2>Private Dining & Events</h2>
+                <p>Ruang privat eksklusif sempurna untuk acara bisnis, perayaan pribadi, atau momen spesial Anda.</p>
+                
+                <div class="events-grid">
+                    <div class="event-card">
+                        <i class="fas fa-briefcase event-icon"></i>
+                        <h3 class="event-title">Business Events</h3>
+                        <p class="event-description">Meeting room eksklusif dengan AV equipment lengkap</p>
+                    </div>
+                    <div class="event-card">
+                        <i class="fas fa-ring event-icon"></i>
+                        <h3 class="event-title">Weddings</h3>
+                        <p class="event-description">Paket pernikahan lengkap dengan dekorasi dan menu kustom</p>
+                    </div>
+                    <div class="event-card">
+                        <i class="fas fa-users event-icon"></i>
+                        <h3 class="event-title">Private Parties</h3>
+                        <p class="event-description">Celebration room untuk 10-50 tamu dengan menu kustom</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <h2>Galeri</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/fine-dining-interior1/300/180.jpg" alt="Restaurant Interior">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Dining Room</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/fine-dining-food1/300/180.jpg" alt="Fine Dining Dish">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Signature Dish</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/fine-dining-wine1/300/180.jpg" alt="Wine Selection">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Wine Cellar</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/fine-dining-private1/300/180.jpg" alt="Private Dining">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Private Room</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/fine-dining-chef1/300/180.jpg" alt="Chef at Work">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Chef's Table</div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/fine-dining-exterior1/300/180.jpg" alt="Restaurant Exterior">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">Entrance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="reservation">
+        <div class="container">
+            <div class="reservation-content">
+                <h2>Reservasi Meja</h2>
+                <p>Nikmati pengalaman fine dining yang tak terlupakan. Reservasi minimal 24 jam sebelumnya.</p>
+                
+                <form id="reservationForm" class="reservation-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="resName" name="name" placeholder="Nama Lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="resEmail" name="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="resPhone" name="phone" placeholder="Nomor Telepon" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" id="resDate" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="time" id="resTime" name="time" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="resGuests" name="guests" required>
+                                <option value="">Jumlah Tamu</option>
+                                <option value="1">1 Orang</option>
+                                <option value="2">2 Orang</option>
+                                <option value="3">3 Orang</option>
+                                <option value="4">4 Orang</option>
+                                <option value="5">5 Orang</option>
+                                <option value="6">6+ Orang</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="resRoom" name="room" required>
+                                <option value="">Pilih Ruang</option>
+                                <option value="main">Main Dining Room</option>
+                                <option value="private">Private Room</option>
+                                <option value="chef">Chef's Table</option>
+                                <option value="terrace">Terrace</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <textarea id="resRequests" name="requests" placeholder="Permintaan Khusus (Dietary restrictions, allergies, dll)"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-message" id="formMessage"></div>
+                    <button type="submit" class="form-submit" id="submitBtn">
+                        <i class="fas fa-check-circle"></i> Konfirmasi Reservasi
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Informasi Kontak</h2>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Alamat</h4>
+                            <p>Jl. Sudirman No. 88, Jakarta Pusat<br>The Plaza Tower, Lantai 45</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Reservasi</h4>
+                            <p>(021) 2993-8888</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>info@lereve-jakarta.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Jam Operasional</h4>
+                            <p>Senin - Sabtu: 18:00 - 23:00<br>Minggu: 12:00 - 15:00, 18:00 - 23:00</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-tshirt contact-icon"></i>
+                        <div class="contact-text">
+                            <h4>Dress Code</h4>
+                            <p>Smart Casual (No shorts, sandals, sportswear)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <img src="https://picsum.photos/seed/restaurant-location-map/400/250.jpg" alt="Location Map">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Le Rêve</h3>
+                    <p>Fine dining restaurant dengan bintang Michelin di Jakarta</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#about">Tentang Kami</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#wine">Wine Collection</a></li>
+                        <li><a href="#events">Private Events</a></li>
+                        <li><a href="#reservation">Reservasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Lunch Menu</a></li>
+                        <li><a href="#">Tasting Menu</a></li>
+                        <li><a href="#">Wine Tasting</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Catering</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Le Rêve Fine Dining. All rights reserved. | Michelin Star Restaurant Since 2015</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Menu category filtering
+        const categoryTabs = document.querySelectorAll('.category-tab');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                
+                menuItems.forEach(item => {
+                    if (category === 'appetizer' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Reservation form with Google Sheets integration
+        const reservationForm = document.getElementById('reservationForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        if (reservationForm) {
+            reservationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const formData = {
+                    name: document.getElementById('resName').value,
+                    email: document.getElementById('resEmail').value,
+                    phone: document.getElementById('resPhone').value,
+                    date: document.getElementById('resDate').value,
+                    time: document.getElementById('resTime').value,
+                    guests: document.getElementById('resGuests').value,
+                    room: document.getElementById('resRoom').value,
+                    requests: document.getElementById('resRequests').value,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+                formMessage.style.display = 'none';
+                
+                // Send data to Google Sheets
+                fetch('https://api.sheetdb.io/v1/api/sheet/6h3x6k0l6l3k2r5', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Show success message
+                    formMessage.textContent = 'Terima kasih! Reservasi Anda telah diterima. Kami akan menghubungi Anda untuk konfirmasi.';
+                    formMessage.className = 'form-message success';
+                    formMessage.style.display = 'block';
+                    
+                    // Reset form
+                    reservationForm.reset();
+                    
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Konfirmasi Reservasi';
+                })
+                .catch(error => {
+                    // Show error message
+                    formMessage.textContent = 'Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi kami langsung.';
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                    
+                    // Reset button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-check-circle"></i> Konfirmasi Reservasi';
+                    
+                    console.error('Error:', error);
+                });
+            });
+        }
+
+        // Gallery lightbox
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const lightbox = document.createElement('div');
+                lightbox.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.9);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 9999;
+                    cursor: pointer;
+                `;
+                
+                const imgElement = document.createElement('img');
+                imgElement.src = img.src;
+                imgElement.style.cssText = `
+                    max-width: 90%;
+                    max-height: 90%;
+                    object-fit: contain;
+                `;
+                
+                lightbox.appendChild(imgElement);
+                document.body.appendChild(lightbox);
+                
+                lightbox.addEventListener('click', function() {
+                    document.body.removeChild(lightbox);
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -30px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
